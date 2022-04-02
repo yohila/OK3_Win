@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools", "wheel", "oldest-supported-numpy", "cython>=0.23", "scikit-learn"]
+build-backend = "setuptools.build_meta"
+
+[tool.cibuildwheel]
+# Only build on CPython 3.6
+build = "cp39-*"
+skip = "cp39-musllinux*"
+
+# Build `universal2` and `arm64` wheels on an Intel runner.
+# Note that the `arm64` wheel and the `arm64` part of the `universal2`
+# wheel cannot be tested in this configuration.
+[tool.cibuildwheel.macos]
+archs = ["x86_64", "universal2", "arm64"]
+
+# On an Linux Intel runner with qemu installed, build Intel and ARM wheels
+[tool.cibuildwheel.linux]
+archs = ["auto"]
